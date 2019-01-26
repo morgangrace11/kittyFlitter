@@ -1,20 +1,47 @@
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'FILL_ME_IN',
-  database : 'test'
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('kittyFlitter', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
   });
-};
 
-module.exports.selectAll = selectAll;
+  const Events = sequelize.define('events', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    event: Sequelize.STRING
+  })
+
+  const EventTimes =sequelize.define('eventTimes', {
+    date: Sequelize.DATE,
+    eventType: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: Events,
+        key: 'id'
+      }
+    }
+  })
+
+  // const Pictures = sequelize.define('pictures', {
+
+  // })
+
+sequelize.sync()
+
+  module.exports = {
+    EventTimes,
+    Events
+  };
