@@ -1,2 +1,2 @@
 # kittyFlitter
-Reminder / scheduling app for you cats needs.
+Reminder / scheduling app for your cats needs.
