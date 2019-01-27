@@ -39,9 +39,9 @@ sequelize
 
   // })
 
-sequelize.sync()
+sequelize.sync();
 
   module.exports = {
-    EventTimes,
-    Events
+    Sequelize,
+    sequelize
   };
