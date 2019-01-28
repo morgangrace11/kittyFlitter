@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from './calender.jsx';
 import List from './list.jsx';
 import Popup from './popup.jsx';
+import Axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,28 +16,46 @@ class App extends React.Component {
       date: ''
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmitClick = this.handleSubmitClick.bind(this);
+    this.handleExit = this.handleExit.bind(this);
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
-  handleClick(e) {
-    console.log(e.target.innerHTML)
+  handleSubmitClick(e) {
+
     this.setState({
       toggle: !this.state.toggle,
       date: `2/${e.target.innerHTML}/2019`
     })
+
+    var data = {
+      event: this.state.event,
+      time: this.state.time,
+      date: this.state.date
+    }
+
+    Axios
+      .post('/api/event', data)
+      .then(response => {
+        console.log('post worked!')
+      })
+
+  }
+
+  handleExit() {
+    this.setState({
+      toggle: !this.state.toggle
+    })
   }
 
   handleEventChange(e) {
-    console.log(e.target.value)
     this.setState({
       event: e.target.value
     })
   }
 
   handleTimeChange(e) {
-    console.log(e.target.value)
     this.setState({
       time: e.target.value
     })
@@ -48,9 +67,9 @@ class App extends React.Component {
       <div className="App">
         <h1 id="title">Kitty Flitter</h1>
         <main>
-          <Calendar handleClick={this.handleClick} />
+          <Calendar handleClick={this.handleSubmitClick} />
           <List />
-          {this.state.toggle ? <Popup handleClick={this.handleClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
+          {this.state.toggle ? <Popup handleExit={this.handleExit} handleSubmitClick={this.handleSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
         </main>
       </div>
     );

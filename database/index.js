@@ -20,20 +20,20 @@ sequelize
       allowNull: false,
       autoIncrement: true
     },
-    event: Sequelize.STRING
-  })
-
-  const EventTimes =sequelize.define('eventTimes', {
-    date: Sequelize.DATE,
-    eventType: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: Events,
-        key: 'id'
-      }
+    event:{
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    time: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    date: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   })
+
 
   // const Pictures = sequelize.define('pictures', {
 
@@ -42,6 +42,5 @@ sequelize
 sequelize.sync();
 
   module.exports = {
-    Sequelize,
-    sequelize
+    Events
   };
