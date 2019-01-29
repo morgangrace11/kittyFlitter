@@ -1,10 +1,12 @@
 import React from 'react';
+import ListItem from './listItem.jsx';
 
-const List = () => (
+const List = (props) => (
   <div id="listDiv">
-    <h2>Upcoming Events</h2>
-    <span>eiuhfwieuhfiuhs</span>
-    <span>divfgsiurdhgiushriufhu</span>
+    <h2>Upcoming Events hjgugy</h2>
+    {props.data.map((event, index) => {
+      return <ListItem handleEditClick={props.handleEditClick} event={event} key={index} />
+    })}
   </div>
 )
 
