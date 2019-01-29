@@ -36,6 +36,7 @@ app.put('/api/edit', (req, res) => {
 })
 
 app.delete('/api/delete', (req, res) => {
+  console.log(req.body)
   db.Events.destroy({where: {
     id: req.body.id
   }})

@@ -4,6 +4,7 @@ import List from './list.jsx';
 import Popup from './popup.jsx';
 import EditPopup from './editPopup.jsx';
 import DeletePopup from './deletePopup.jsx';
+import Cats from './cats';
 import Axios from 'axios';
 
 class App extends React.Component {
@@ -64,7 +65,6 @@ class App extends React.Component {
       editToggle: !this.state.editToggle
     })
 
-
     Axios
       .put('/api/edit', {
         id: this.state.id,
@@ -108,13 +108,16 @@ class App extends React.Component {
   }
 
   handleDeleteClick() {
+
     this.setState({
-      toggle: !this.state.deleteToggle
+      deleteToggle: !this.state.deleteToggle
     })
 
     Axios
       .delete('/api/delete', {
-        id: this.state.id
+        data: {
+          id: this.state.id
+        }
       })
       .then(res => {
         console.log('delete worked');
@@ -126,19 +129,19 @@ class App extends React.Component {
 
   handleExit() {
     this.setState({
-      toggle: !this.state.toggle
+      toggle: false
     })
   }
 
   handleEditExit() {
     this.setState({
-      editToggle: !this.state.editToggle
+      editToggle: false
     })
   }
 
   handleDeleteExit() {
     this.setState({
-      toggle: !this.state.deleteToggle
+      deleteToggle: false
     })
   }
 
@@ -161,13 +164,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
-        <h1 id="title">Kitty Flitter</h1>
+        <h1 className="title">Kitty Flitter</h1>
+        <div className="center">
+          <Cats />
+        </div>
         <main>
           <Calendar handleClick={this.handleClick} />
-          <List data={this.state.list} handleEditClick={this.handleEditClick} handleDeleteClick={this.handleDeleteClick} />
+          <div className="list" >
+            <List data={this.state.list} handleEditClick={this.handleEditClick} handleDeleteClick={this.handleDeleteClick} />
+          </div>
           {this.state.toggle ? <Popup handleExit={this.handleExit} handleSubmitClick={this.handleSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
           {this.state.editToggle ? <EditPopup handleIdChange={this.handleIdChange} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
           {this.state.deleteToggle ? <DeletePopup handleIdChange={this.handleIdChange} handleDeleteExit={this.handleDeleteExit} handleDeleteClick={this.handleDeleteClick} /> : null}
