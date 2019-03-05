@@ -10,7 +10,7 @@ const Popup = (props) => (
         Time:
     <input type="time" onChange={props.handleTimeChange} required />
         <br />
-        <input onClick={props.handleSubmitClick} type="button" value="submit" />
+        <input onClick={props.handleCalSubmitClick} type="button" value="submit" />
       </form>
       <button onClick={props.handleExit} >cancel</button>
     </div>

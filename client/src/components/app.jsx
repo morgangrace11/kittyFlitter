@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from './calender.jsx';
 import List from './list.jsx';
-import Popup from './popup.jsx';
+import CalPopup from './calenderPopup.jsx';
 import EditPopup from './editPopup.jsx';
 import DeletePopup from './deletePopup.jsx';
 import Cats from './cats';
@@ -18,16 +18,18 @@ class App extends React.Component {
       toggle: false,
       date: '',
       editToggle: false,
+      editId: ''
     }
 
-    this.handleSubmitClick = this.handleSubmitClick.bind(this);
-    this.handleExit = this.handleExit.bind(this);
+    this.handleCalSubmitClick = this.handleCalSubmitClick.bind(this);
+    this.handleCalExit = this.handleCalExit.bind(this);
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleCalClick = this.handleCalClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleEditExit = this.handleEditExit.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleEditSubmit = this.handleEditSubmit.bind(this);
     this.get = this.get.bind(this);
   }
 
@@ -49,38 +51,14 @@ class App extends React.Component {
       })
   }
 
-  handleClick(e) {
+  handleCalClick(e) {
     this.setState({
       toggle: !this.state.toggle,
       date: `2/${e.target.innerHTML}/2019`
     })
   }
 
-  handleEditClick(e) {
-    console.log(e.target.id)
-
-    this.setState({
-      editToggle: !this.state.editToggle
-    })
-
-    Axios
-      .put('/api/edit', {
-        id: this.state.id,
-        event: this.state.event,
-        time: this.state.time,
-        date: this.state.date
-      })
-      .then(response => {
-        console.log('put worked');
-        this.get();
-      })
-      .catch(err => {
-        console.error('put did not work');
-      })
-
-  }
-
-  handleSubmitClick(e) {
+  handleCalSubmitClick(e) {
 
     this.setState({
       toggle: !this.state.toggle
@@ -104,8 +82,44 @@ class App extends React.Component {
     })
   }
 
-  handleDeleteClick(e) {
+  handleCalExit() {
+    this.setState({
+      toggle: false
+    })
+  }
 
+  handleEditClick(e) {
+    this.setState({
+      editToggle: !this.state.editToggle,
+      editId: e.target.id
+    })
+  }
+
+  handleEditSubmit(e) {
+    Axios
+      .put('/api/edit', {
+        id: this.state.editId,
+        event: this.state.event,
+        time: this.state.time,
+        date: this.state.date
+      })
+      .then(response => {
+        console.log('put worked');
+        this.handleEditExit();
+        this.get();
+      })
+      .catch(err => {
+        console.error('put did not work');
+      })
+  }
+
+  handleEditExit() {
+    this.setState({
+      editToggle: false
+    })
+  }
+
+  handleDeleteClick(e) {
     Axios
       .delete('/api/delete', {
         data: {
@@ -120,34 +134,20 @@ class App extends React.Component {
       })
   }
 
-  handleExit() {
-    this.setState({
-      toggle: false
-    })
-  }
-
-  handleEditExit() {
-    this.setState({
-      editToggle: false
-    })
-  }
-
-
-
   handleEventChange(e) {
     this.setState({
       event: e.target.value
     })
+    console.log(this.state.event)
   }
 
   handleTimeChange(e) {
     this.setState({
       time: e.target.value
     })
+    console.log(this.state.time)
   }
-
   render() {
-    console.log(this.state.list, 'list line 166 app');
     return (
       <div className="App">
         <h1 className="title">Kitty Flitter</h1>
@@ -155,12 +155,12 @@ class App extends React.Component {
           <Cats />
         </div>
         <main>
-          <Calendar handleClick={this.handleClick} />
+          <Calendar handleCalClick={this.handleCalClick} />
           <div className="list" >
             <List data={this.state.list} handleEditClick={this.handleEditClick} handleDeleteClick={this.handleDeleteClick} />
           </div>
-          {this.state.toggle ? <Popup handleExit={this.handleExit} handleSubmitClick={this.handleSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
-          {this.state.editToggle ? <EditPopup handleIdChange={this.handleIdChange} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
+          {this.state.toggle ? <CalPopup handleCalExit={this.handleCalExit} handleCalSubmitClick={this.handleCalSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
+          {this.state.editToggle ? <EditPopup handleEditSubmit={this.handleEditSubmit} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
         </main>
       </div>
     );
