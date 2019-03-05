@@ -17,9 +17,7 @@ class App extends React.Component {
       event: '',
       toggle: false,
       date: '',
-      id: '',
       editToggle: false,
-      deleteToggle: false
     }
 
     this.handleSubmitClick = this.handleSubmitClick.bind(this);
@@ -27,11 +25,9 @@ class App extends React.Component {
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleIdChange = this.handleIdChange.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleEditExit = this.handleEditExit.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleDeleteExit = this.handleDeleteExit.bind(this);
     this.get = this.get.bind(this);
   }
 
@@ -60,7 +56,9 @@ class App extends React.Component {
     })
   }
 
-  handleEditClick() {
+  handleEditClick(e) {
+    console.log(e.target.id)
+
     this.setState({
       editToggle: !this.state.editToggle
     })
@@ -94,29 +92,24 @@ class App extends React.Component {
       date: this.state.date
     }
 
-    Axios
-      .post('/api/event', data).then(response => {
-        console.log('post worked!')
-        this.setState({
-          time: '',
-          event: '',
-          toggle: false,
-          date: ''
-        })
-        this.get();
+    Axios.post('/api/event', data).then(response => {
+      console.log('post worked!')
+      this.setState({
+        time: '',
+        event: '',
+        toggle: false,
+        date: ''
       })
+      this.get();
+    })
   }
 
-  handleDeleteClick() {
-
-    this.setState({
-      deleteToggle: !this.state.deleteToggle
-    })
+  handleDeleteClick(e) {
 
     Axios
       .delete('/api/delete', {
         data: {
-          id: this.state.id
+          id: e.target.id
         }
       })
       .then(res => {
@@ -139,11 +132,7 @@ class App extends React.Component {
     })
   }
 
-  handleDeleteExit() {
-    this.setState({
-      deleteToggle: false
-    })
-  }
+
 
   handleEventChange(e) {
     this.setState({
@@ -157,13 +146,8 @@ class App extends React.Component {
     })
   }
 
-  handleIdChange(e) {
-    this.setState({
-      id: e.target.value
-    })
-  }
-
   render() {
+    console.log(this.state.list, 'list line 166 app');
     return (
       <div className="App">
         <h1 className="title">Kitty Flitter</h1>
@@ -177,7 +161,6 @@ class App extends React.Component {
           </div>
           {this.state.toggle ? <Popup handleExit={this.handleExit} handleSubmitClick={this.handleSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
           {this.state.editToggle ? <EditPopup handleIdChange={this.handleIdChange} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
-          {this.state.deleteToggle ? <DeletePopup handleIdChange={this.handleIdChange} handleDeleteExit={this.handleDeleteExit} handleDeleteClick={this.handleDeleteClick} /> : null}
         </main>
       </div>
     );
