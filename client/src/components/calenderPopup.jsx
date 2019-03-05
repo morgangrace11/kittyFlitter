@@ -12,7 +12,7 @@ const Popup = (props) => (
         <br />
         <input onClick={props.handleCalSubmitClick} type="button" value="submit" />
       </form>
-      <button onClick={props.handleExit} >cancel</button>
+      <button onClick={props.handleCalExit} >cancel</button>
     </div>
   </div>
 );

@@ -3,7 +3,6 @@ import Calendar from './calender.jsx';
 import List from './list.jsx';
 import CalPopup from './calenderPopup.jsx';
 import EditPopup from './editPopup.jsx';
-import DeletePopup from './deletePopup.jsx';
 import Cats from './cats';
 import Axios from 'axios';
 
@@ -154,14 +153,17 @@ class App extends React.Component {
         <div className="center">
           <Cats />
         </div>
-        <main>
-          <Calendar handleCalClick={this.handleCalClick} />
+        <div className="main">
           <div className="list" >
             <List data={this.state.list} handleEditClick={this.handleEditClick} handleDeleteClick={this.handleDeleteClick} />
           </div>
-          {this.state.toggle ? <CalPopup handleCalExit={this.handleCalExit} handleCalSubmitClick={this.handleCalSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
-          {this.state.editToggle ? <EditPopup handleEditSubmit={this.handleEditSubmit} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
-        </main>
+          <br />
+          <div className="cal">
+            <Calendar handleCalClick={this.handleCalClick} />
+          </div>
+        </div>
+        {this.state.toggle ? <CalPopup handleCalExit={this.handleCalExit} handleCalSubmitClick={this.handleCalSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
+        {this.state.editToggle ? <EditPopup handleEditSubmit={this.handleEditSubmit} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
       </div>
     );
 

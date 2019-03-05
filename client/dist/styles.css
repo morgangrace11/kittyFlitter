@@ -37,12 +37,16 @@ td {
   background-color: grey;
 }
 
-main {
-   display: flex;
-}
 
 .list {
-    padding-left: 400px;
+ display: inline-block;
+}
+
+.main {
+  text-align: center;
+}
+.cal {
+  display: inline-block;
 }
 
 #listDiv {
@@ -62,9 +66,6 @@ main {
   color: #d98695;
 }
 
-#calender {
-  padding-left: 100px;
-}
 
 span {
   text-align: center;
@@ -115,7 +116,6 @@ span {
 }
 
 .upcoming {
-  padding-left: 40px;
   color: #d98695;
 }
 
