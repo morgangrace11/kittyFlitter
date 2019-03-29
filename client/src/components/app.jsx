@@ -1,10 +1,11 @@
 import React from 'react';
+import Axios from 'axios';
 import Calendar from './calender.jsx';
 import List from './list.jsx';
 import CalPopup from './calenderPopup.jsx';
 import EditPopup from './editPopup.jsx';
 import Cats from './cats';
-import Axios from 'axios';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -17,8 +18,9 @@ class App extends React.Component {
       toggle: false,
       date: '',
       editToggle: false,
-      editId: ''
-    }
+      editId: '',
+      today: new Date(),
+    };
 
     this.handleCalSubmitClick = this.handleCalSubmitClick.bind(this);
     this.handleCalExit = this.handleCalExit.bind(this);
@@ -39,59 +41,54 @@ class App extends React.Component {
   get() {
     Axios
       .get('/api/event')
-      .then(response => {
+      .then((response) => {
         this.setState({
-          list: response.data
-        })
-        console.log(response.data)
+          list: response.data,
+        });
       })
-      .catch(err => {
-        console.error('something wrong with get');
-      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   handleCalClick(e) {
     this.setState({
       toggle: !this.state.toggle,
-      date: `2/${e.target.innerHTML}/2019`
-    })
+      date: `${e.target.id}/${e.target.innerHTML}/2019`,
+    });
   }
 
-  handleCalSubmitClick(e) {
-
-    this.setState({
-      toggle: !this.state.toggle
-    })
-
+  handleCalSubmitClick() {
     var data = {
       event: this.state.event,
       time: this.state.time,
-      date: this.state.date
-    }
-
-    Axios.post('/api/event', data).then(response => {
-      console.log('post worked!')
+      date: this.state.date,
+    };
+    this.setState({
+      toggle: !this.state.toggle,
+    });
+    Axios.post('/api/event', data).then(() => {
       this.setState({
         time: '',
         event: '',
         toggle: false,
-        date: ''
-      })
+        date: '',
+      });
       this.get();
-    })
+    });
   }
 
   handleCalExit() {
     this.setState({
-      toggle: false
-    })
+      toggle: false,
+    });
   }
 
   handleEditClick(e) {
     this.setState({
       editToggle: !this.state.editToggle,
-      editId: e.target.id
-    })
+      editId: e.target.id,
+    });
   }
 
   handleEditSubmit(e) {
@@ -100,73 +97,86 @@ class App extends React.Component {
         id: this.state.editId,
         event: this.state.event,
         time: this.state.time,
-        date: this.state.date
+        date: this.state.date,
       })
-      .then(response => {
-        console.log('put worked');
+      .then(() => {
         this.handleEditExit();
         this.get();
       })
-      .catch(err => {
-        console.error('put did not work');
-      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   handleEditExit() {
     this.setState({
-      editToggle: false
-    })
+      editToggle: false,
+    });
   }
 
   handleDeleteClick(e) {
     Axios
       .delete('/api/delete', {
         data: {
-          id: e.target.id
+          id: e.target.id,
         }
       })
-      .then(res => {
-        console.log('delete worked');
+      .then(() => {
         this.get();
       }).catch(err => {
-        console.error('delete did not work');
-      })
+        console.error(err);
+      });
   }
 
   handleEventChange(e) {
     this.setState({
-      event: e.target.value
-    })
-    console.log(this.state.event)
+      event: e.target.value,
+    });
   }
 
   handleTimeChange(e) {
     this.setState({
-      time: e.target.value
-    })
-    console.log(this.state.time)
+      time: e.target.value,
+    });
   }
   render() {
     return (
-      <div className="App">
-        <h1 className="title">Kitty Flitter</h1>
-        <div className="center">
-          <Cats />
+      <div>
+        <div className="header">
+          <h1>Kitty Flitter</h1>
+          <img src="cat.png" width="42" height="42" />
         </div>
-        <div className="main">
-          <div className="list" >
-            <List data={this.state.list} handleEditClick={this.handleEditClick} handleDeleteClick={this.handleDeleteClick} />
+        <div className="container">
+          <div className="center">
+            <Cats />
           </div>
-          <br />
-          <div className="cal">
-            <Calendar handleCalClick={this.handleCalClick} />
+          <div className="main">
+            <div className="list" >
+              <List
+                data={this.state.list}
+                handleEditClick={this.handleEditClick}
+                handleDeleteClick={this.handleDeleteClick}
+              />
+            </div>
+            <br />
+            <div className="center">
+              <Calendar today={this.state.today} handleCalClick={this.handleCalClick} />
+            </div>
           </div>
+          {this.state.toggle ? <CalPopup
+            handleCalExit={this.handleCalExit}
+            handleCalSubmitClick={this.handleCalSubmitClick}
+            handleEventChange={this.handleEventChange}
+            handleTimeChange={this.handleTimeChange} /> : null}
+          {this.state.editToggle ? <EditPopup
+            handleEditSubmit={this.handleEditSubmit}
+            handleEditExit={this.handleEditExit}
+            handleEditClick={this.handleEditClick}
+            handleEventChange={this.handleEventChange}
+            handleTimeChange={this.handleTimeChange} /> : null}
         </div>
-        {this.state.toggle ? <CalPopup handleCalExit={this.handleCalExit} handleCalSubmitClick={this.handleCalSubmitClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
-        {this.state.editToggle ? <EditPopup handleEditSubmit={this.handleEditSubmit} handleEditExit={this.handleEditExit} handleEditClick={this.handleEditClick} handleEventChange={this.handleEventChange} handleTimeChange={this.handleTimeChange} /> : null}
       </div>
     );
-
   }
 }
 

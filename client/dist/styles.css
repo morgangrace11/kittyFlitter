@@ -12,10 +12,17 @@ body {
     font-size: 1em;
     font-weight: 300;
     line-height: 1.5;
-    position: relative;
-    background: lightgray
+    text-align: center;
+        background: rgb(36, 36, 34);
 }
 
+.container {
+  margin: 0 auto;
+  text-align: left;
+  width: 60%;
+  background-color: rgb(36, 36, 34);
+  height: 100%;
+}
 
 table, th, td {
   border: 1px solid black;
@@ -25,7 +32,7 @@ table, th, td {
 table {
   border-spacing: 15px;
   table-layout: fixed;
-  width: 750px;
+  width: 100%;
 }
 
 td {
@@ -34,38 +41,49 @@ td {
 }
 
 .otherMonth {
-  background-color: grey;
+  background-color: rgb(41, 39, 39);
 }
 
+.weekdays {
+  color: rgb(233, 183, 54);
+}
+
+.days {
+  color: lightgrey
+}
 
 .list {
- display: inline-block;
+ margin: 0 auto;
+ width: 40%
 }
 
 .main {
   text-align: center;
 }
 .cal {
-  display: inline-block;
+  margin: 0 auto;
+  width: 50%
 }
 
 #listDiv {
-  border: solid #d98695 10px;
-  background-color: #d98695;
+  border: solid  black 10px;
+  background-color:  black;
   border-radius: 25px;
 }
 
-.title {
-  text-align: center;
-  color: #d98695;
+.header {
+  text-align: left;
+  color: black;
+  width: 100%;
+  display: flex;
+  background: rgb(233, 183, 54);
 }
 
 #month {
   width: 750px;
   text-align: center;
-  color: #d98695;
+  color: rgb(233, 183, 54)
 }
-
 
 span {
   text-align: center;
@@ -94,11 +112,13 @@ span {
   transform: rotate(90deg);
 }
 
+.upcoming {
+  color: rgb(233, 183, 54)
+}
 
 .cat-wrapper {
 	display: flex;
-  border: solid #d98695 10px;
-  background-color: #d98695;
+  padding-top: 20px;
   border-radius: 25px;
 }
 
@@ -107,7 +127,7 @@ span {
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+  align-items: center;
 }
 
 .cat {
@@ -115,9 +135,6 @@ span {
     border-radius: 25px;
 }
 
-.upcoming {
-  color: #d98695;
-}
 
 .eventList {
   color: white;
@@ -125,4 +142,17 @@ span {
 
 .icon {
   padding-left: 5px;
+}
+
+.calHeader {
+  display: flex;
+  margin: 0 auto;
+  width: 75%
+}
+
+.button {
+  border-radius: 48%;
+  color: white;
+  background-color: rgb(233, 183, 54);
+padding: 10px
 }
