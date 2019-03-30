@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import January from './calendarMonths/january.jsx';
 import February from './calendarMonths/february.jsx';
 import March from './calendarMonths/march.jsx';
@@ -48,9 +49,9 @@ class Calendar extends React.Component {
     return (
       <div>
         <div className="calHeader">
-          <button className="button" onClick={this.handlePrevClick}>Prev</button>
+          <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handlePrevClick}>Previous</Button>
           <h2 id="month">{this.state.months[this.state.currMonth]}</h2>
-          <button className="button" onClick={this.handleNextClick}>Next</button>
+          <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handleNextClick}>Next</Button>
         </div>
         {this.state.months[this.state.currMonth] === 'January' ? <January handleCalClick={this.props.handleCalClick} /> : null}
         {this.state.months[this.state.currMonth] === 'February' ? <February handleCalClick={this.props.handleCalClick} /> : null}

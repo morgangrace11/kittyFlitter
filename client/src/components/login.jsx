@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
-class Login extends React.Component {
-  constructor() {
-    handlePageChange
-  }
+const Login = () => (
+  <div>
+    <Link to='/main'>
+      <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Submit</Button>
+    </Link>
+  </div>
+)
 
-  render() {
-    <div>MADE IT</div>
-  }
-}
-
-// ReactDOM.render(<Login />, document.getElementById('login'));
+export default Login;

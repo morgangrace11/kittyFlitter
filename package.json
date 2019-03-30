@@ -28,6 +28,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
@@ -35,14 +36,11 @@
     "moment": "^2.24.0",
     "mysql": "^2.13.0",
     "mysql2": "^1.6.4",
-    "react": "^15.4.2",
-    "react-calendar": "^2.18.1",
-    "react-dom": "^15.4.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-hot-loader": "^4.6.3",
-    "react-redux": "^6.0.1",
-    "react-responsive-carousel": "^3.1.47",
-    "react-table": "^6.8.6",
-    "redux": "^4.0.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "sequelize": "^4.42.0"
   }
 }

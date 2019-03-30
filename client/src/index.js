@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app.jsx'
-import Login from './components/login.jsx';
+import App from './components/app.jsx';
+import { BrowserRouter } from 'react-router';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <div>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </div>,
+   document.getElementById('app'));
