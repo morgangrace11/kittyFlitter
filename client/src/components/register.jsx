@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
+
+
   }
 
   render() {
     return (
       <div>
-        <form action="/login" method="post">
+        <form action="/register" method="post">
           <div>
             <label>Username:</label>
             <input type="text" name="username" />
@@ -28,4 +30,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Register;
