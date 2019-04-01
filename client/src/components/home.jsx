@@ -11,6 +11,9 @@ const Home = () => (
     <Link to='/login'>
       <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Login</Button>
     </Link>
+    <Link to='/register'>
+      <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Register</Button>
+    </Link>
   </div>
 );
 
