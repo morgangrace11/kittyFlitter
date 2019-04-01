@@ -34,13 +34,20 @@ sequelize
     }
   })
 
-
-  // const Pictures = sequelize.define('pictures', {
-
-  // })
+  const User = sequelize.define('users', {
+    userName: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    }
+  })
 
 sequelize.sync();
 
   module.exports = {
-    Events
+    Events,
+    User,
   };
