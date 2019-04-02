@@ -2,8 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const db = require('../database');
 const saltRounds = 10;
@@ -12,35 +10,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 app.use(session({ secret: 'cats' }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
 //passport functions
-
-passport.use(new LocalStrategy(
-  (username, password, done) => {
-    db.User.findOne({ username }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  },
-));
-
-//routes
-
-app.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/main',
-    failureRedirect: '/login',
-    failureFlash: true,
-  }),
-);
 
 app.post('/register', (req, res) => {
   var salt = bcrypt.genSaltSync(saltRounds);
