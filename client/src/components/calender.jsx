@@ -5,7 +5,7 @@ import February from './calendarMonths/february.jsx';
 import March from './calendarMonths/march.jsx';
 import April from './calendarMonths/april.jsx';
 import May from './calendarMonths/may.jsx';
-import June from './calendarMonths/June.jsx'
+import June from './calendarMonths/june.jsx'
 import July from './calendarMonths/july.jsx';
 import August from './calendarMonths/august.jsx';
 import September from './calendarMonths/september.jsx';
