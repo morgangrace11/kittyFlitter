@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -d",
     "heroku-postbuild": "npm run build",
-    "start": "server/index.js"
+    "start": "nodemon server/index.js"
   },
   "author": "Morgan Grace",
   "license": "ISC",
