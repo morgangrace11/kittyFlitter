@@ -6,6 +6,11 @@ const sequelize = new Sequelize('kittyFlitter', 'morgan', 'password', {
   dialectOptions: {
     ssl: 'Amazon RDS',
   },
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000,
+  },
 });
 
 sequelize
