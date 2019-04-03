@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -d",
     "heroku-postbuild": "npm run build",
-    "start": "nodemon server/index.js"
+    "start": "server/index.js"
   },
   "author": "Morgan Grace",
   "license": "ISC",
@@ -39,6 +39,7 @@
     "moment": "^2.24.0",
     "mysql": "^2.13.0",
     "mysql2": "^1.6.4",
+    "nodemon": "^1.18.10",
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
