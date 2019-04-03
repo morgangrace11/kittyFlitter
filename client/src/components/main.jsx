@@ -1,8 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
 import Calendar from './calender.jsx';
-import List from './list.jsx';
 import CalPopup from './calenderPopup.jsx';
+import List from './list.js';
 import EditPopup from './editPopup.jsx';
 import Cats from './cats';
 import { connect } from 'react-redux';
