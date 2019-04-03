@@ -1,7 +1,11 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('kittyFlitter', 'root', 'password', {
-  host: 'localhost',
+const sequelize = new Sequelize('kittyFlitter', 'morgan', 'password', {
+  host: 'kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com',
+  port: 3306,
   dialect: 'mysql',
+  dialectOptions: {
+    ssl: 'Amazon RDS',
+  },
 });
 
 sequelize
