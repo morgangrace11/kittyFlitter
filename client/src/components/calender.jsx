@@ -21,8 +21,8 @@ class Calendar extends React.Component {
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       date: new Date(),
       currMonth: '',
-    }
 
+    }
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
   }
@@ -32,6 +32,7 @@ class Calendar extends React.Component {
       currMonth: this.state.date.getMonth(),
     })
   }
+
 
   handlePrevClick() {
     this.setState({

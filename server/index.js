@@ -47,7 +47,11 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/api/event', (req, res) => {
-  db.Events.findAll().then((response) => {
+  db.Events.findAll({
+    where: {
+      username: req.query.username,
+    }
+  }).then((response) => {
     res.status(200);
     res.send(response);
   });

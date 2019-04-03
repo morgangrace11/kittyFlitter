@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { replaceUser } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,7 +11,6 @@ class Login extends React.Component {
 
     this.state = {
       loggedIn: false,
-      username: '',
       password: '',
     }
 
@@ -20,10 +21,11 @@ class Login extends React.Component {
 
   //get request point to /login
   handleClick() {
+    console.log(this.props.username)
     axios
       .get('/login', {
         params: {
-          username: this.state.username,
+          username: this.props.username,
           password: this.state.password,
         }
       }).then((response) => {
@@ -37,9 +39,7 @@ class Login extends React.Component {
   }
 
   handleUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
+    this.props.replaceUser(e.target.value);
   }
 
   handlePassword(e) {
@@ -49,6 +49,7 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <form action="/login" method="post">
@@ -68,4 +69,9 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  const { username } = state;
+  return { username };
+}
+
+export default connect(mapStateToProps, { replaceUser })(Login);

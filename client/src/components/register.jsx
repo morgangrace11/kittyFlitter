@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { replaceUser } from '../actions';
 
 class Register extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class Register extends React.Component {
   handleClick() {
     axios
       .post('/register', {
-        username: this.state.username,
+        username: this.props.username,
         password: this.state.password,
       })
       .then((res) => {
@@ -31,18 +33,16 @@ class Register extends React.Component {
         console.log(res, 'register post worked');
       }).catch((err) => {
         console.error(err, 'register post failed');
-         alert('username in use');
+        alert('username in use');
       });
   }
 
   handleUserName(e) {
-    this.setState({
-      username: e.target.value
-    });
+    this.props.replaceUser(e.target.value);
   }
 
   handlePassword(e) {
-     this.setState({
+    this.setState({
       password: e.target.value
     });
   }
@@ -59,12 +59,17 @@ class Register extends React.Component {
             <label>Password:</label>
             <input onChange={this.handlePassword} type="password" name="password" />
           </div>
-            <Button onClick={this.handleClick} variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Submit</Button>
+          <Button onClick={this.handleClick} variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Submit</Button>
         </form>
-        {this.state.registered === true ? <Redirect to='/main'/> : null}
+        {this.state.registered === true ? <Redirect to='/main' /> : null}
       </div>
     )
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+  const { username } = state;
+  return { username };
+}
+
+export default connect(mapStateToProps, { replaceUser })(Register);

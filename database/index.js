@@ -18,19 +18,23 @@ sequelize
       type: Sequelize.INTEGER,
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
     },
     event:{
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     time: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     date: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+    },
+    username: {
+      type: Sequelize.STRING,
+      allowNull: false,
     }
   })
 

@@ -5,6 +5,7 @@ import List from './list.jsx';
 import CalPopup from './calenderPopup.jsx';
 import EditPopup from './editPopup.jsx';
 import Cats from './cats';
+import { connect } from 'react-redux';
 
 class Main extends React.Component {
   constructor(props) {
@@ -41,7 +42,11 @@ class Main extends React.Component {
 
   get() {
     Axios
-      .get('/api/event')
+      .get('/api/event', {
+        params: {
+          username: this.props.username
+        }
+      })
       .then((response) => {
         this.setState({
           list: response.data,
@@ -67,6 +72,7 @@ class Main extends React.Component {
       event: this.state.event,
       time: this.state.time,
       date: this.state.date,
+      username: this.props.username,
     };
     this.setState({
       toggle: !this.state.toggle,
@@ -195,4 +201,9 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+const mapStateToProps = state => {
+  const { username } = state;
+  return { username };
+}
+
+export default connect(mapStateToProps)(Main);
