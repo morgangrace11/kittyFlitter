@@ -23,7 +23,7 @@ class Login extends React.Component {
   handleClick() {
     console.log(this.props.username)
     axios
-      .get('/login', {
+      .get('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/login', {
         params: {
           username: this.props.username,
           password: this.state.password,
@@ -49,7 +49,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <form action="/login" method="post">

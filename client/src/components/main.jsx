@@ -42,7 +42,7 @@ class Main extends React.Component {
 
   get() {
     Axios
-      .get('/api/event', {
+      .get('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/api/event', {
         params: {
           username: this.props.username
         }
@@ -77,7 +77,7 @@ class Main extends React.Component {
     this.setState({
       toggle: !this.state.toggle,
     });
-    Axios.post('/api/event', data).then(() => {
+    Axios.post('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/api/event', data).then(() => {
       this.setState({
         time: '',
         event: '',
@@ -107,7 +107,7 @@ class Main extends React.Component {
 
   handleEditSubmit(e) {
     Axios
-      .put('/api/edit', {
+      .put('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/api/edit', {
         id: this.state.editId,
         event: this.state.event,
         time: this.state.time,
@@ -133,7 +133,7 @@ class Main extends React.Component {
 
   handleDeleteClick(e) {
     Axios
-      .delete('/api/delete', {
+      .delete('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/api/delete', {
         data: {
           id: e.target.id,
         }
