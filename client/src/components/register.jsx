@@ -22,7 +22,7 @@ class Register extends React.Component {
 
   handleClick() {
     axios
-      .post('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/register', {
+      .post('/register', {
         username: this.props.username,
         password: this.state.password,
       })

@@ -22,7 +22,7 @@ class Login extends React.Component {
   //get request point to /login
   handleClick() {
     axios
-      .get('kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com/login', {
+      .get('/login', {
         params: {
           username: this.props.username,
           password: this.state.password,
