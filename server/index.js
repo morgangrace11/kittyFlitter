@@ -5,6 +5,7 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const db = require('../database');
 const saltRounds = 10;
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static(path.join(__dirname, '/../client/dist')));
@@ -90,5 +91,5 @@ app.delete('/api/delete', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('listening on port 3000!');
+  console.log(`listening on port ${port}!`);
 });
