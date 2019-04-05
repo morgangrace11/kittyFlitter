@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { replaceUser } from '../actions';
+import TextField from '@material-ui/core/TextField';
 
 class Register extends React.Component {
   constructor(props) {
@@ -49,18 +50,18 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="login">
         <form action="/register" method="post">
           <div>
-            <label>Username:</label>
-            <input onChange={this.handleUserName} type="text" name="username" />
+            <TextField label="username" onChange={this.handleUsername} />
           </div>
           <div>
-            <label>Password:</label>
-            <input onChange={this.handlePassword} type="password" name="password" />
+            <TextField label="password" onChange={this.handlePassword} />
           </div>
-          <Button onClick={this.handleClick} variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Submit</Button>
+          <br />
+          <Button onClick={this.handleClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
         </form>
+        <br />
         {this.state.registered === true ? <Redirect to='/main' /> : null}
       </div>
     )

@@ -50,9 +50,9 @@ class Calendar extends React.Component {
     return (
       <div>
         <div className="calHeader">
-          <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handlePrevClick}>Previous</Button>
+          <Button variant='outlined' style={{ height: '50px', width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handlePrevClick}>Previous</Button>
           <h2 id="month">{this.state.months[this.state.currMonth]}</h2>
-          <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handleNextClick}>Next</Button>
+          <Button variant='outlined' style={{ height: '50px', width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handleNextClick}>Next</Button>
         </div>
         {this.state.months[this.state.currMonth] === 'January' ? <January handleCalClick={this.props.handleCalClick} /> : null}
         {this.state.months[this.state.currMonth] === 'February' ? <February handleCalClick={this.props.handleCalClick} /> : null}
@@ -66,7 +66,7 @@ class Calendar extends React.Component {
         {this.state.months[this.state.currMonth] === 'October' ? <October handleCalClick={this.props.handleCalClick} /> : null}
         {this.state.months[this.state.currMonth] === 'November' ? <November handleCalClick={this.props.handleCalClick} /> : null}
         {this.state.months[this.state.currMonth] === 'December' ? <December handleCalClick={this.props.handleCalClick} /> : null}
-      </div>
+      </div >
     )
   }
 }

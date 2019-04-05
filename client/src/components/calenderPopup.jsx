@@ -1,18 +1,22 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const Popup = (props) => (
-  <div id="popup">
-    <div id="popup-main">
+  <div>
+    <div className="popup-main">
       <form>
-        Event:
-    <input type="text" onChange={props.handleEventChange} required />
-        <br />
-        Time:
-    <input type="time" onChange={props.handleTimeChange} required />
-        <br />
-        <input onClick={props.handleCalSubmitClick} type="button" value="submit" />
+        <div>
+          <TextField label="Event" onChange={props.handleEventChange} />
+        </div>
+        <div>
+          <TextField label="Time" onChange={props.handleTimeChange} />
+        </div>
+        <div>
+          <Button onClick={props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
+        </div>
       </form>
-      <button onClick={props.handleCalExit} >cancel</button>
+      <Button onClick={props.handleCalExit} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
     </div>
   </div>
 );

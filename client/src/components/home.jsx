@@ -8,11 +8,12 @@ const Home = () => (
       <h1>Kitty Flitter</h1>
       <img src="cat.png" width="100" height="100" />
     </div>
+    <br />
     <Link to='/login'>
-      <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Login</Button>
+      <Button variant='outlined' style={{ width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Login</Button>
     </Link>
     <Link to='/register'>
-      <Button variant='outlined' style={{ color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Register</Button>
+      <Button variant='outlined' style={{ width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='large'>Register</Button>
     </Link>
   </div>
 );

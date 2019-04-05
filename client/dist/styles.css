@@ -91,23 +91,15 @@ span {
   text-align: center;
 }
 
-#popup {
-   position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-#popup-main {
+.popup-main {
     position:fixed;
   background: white;
-  width: 50%;
+  width: 15%;
   height: 25%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  text-align: center;
 }
 
 #rotate {
@@ -157,11 +149,15 @@ span {
   color:  rgb(36, 36, 34);
   font-size: 13px;
   background-color: rgb(233, 183, 54);
-padding: 10px
+  padding: 10px
 }
 
 .homeTitle {
   background-color: rgb(233, 183, 54);
   width: 100%;
   font-size: 40px;
+}
+
+.login {
+  background-color: rgb(233, 183, 54);
 }
