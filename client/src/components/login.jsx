@@ -21,6 +21,7 @@ class Login extends React.Component {
 
   //get request point to /login
   handleClick() {
+    console.log(this.props.username, this.state.password)
     axios
       .get('/login', {
         params: {

@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -d",
-    "heroku-postbuild": "npm run build",
+    "build": "webpack -d --watch",
     "start": "nodemon server/index.js"
   },
   "author": "Morgan Grace",
