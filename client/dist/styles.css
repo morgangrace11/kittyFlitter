@@ -161,3 +161,7 @@ span {
 .login {
   background-color: rgb(233, 183, 54);
 }
+
+.mainUser {
+  text-align: right;
+}
