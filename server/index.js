@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 app.use(bodyParser.json());
-
+//this is a change
 app.post('/register', (req, res) => {
   var salt = bcrypt.genSaltSync(saltRounds);
   var hash = bcrypt.hashSync(req.body.password, salt);
