@@ -53,7 +53,7 @@ class Register extends React.Component {
       <div className="login">
         <form action="/register" method="post">
           <div>
-            <TextField label="username" onChange={this.handleUsername} />
+            <TextField label="username" onChange={this.handleUserName} />
           </div>
           <div>
             <TextField label="password" onChange={this.handlePassword} />
