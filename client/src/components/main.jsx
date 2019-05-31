@@ -6,7 +6,7 @@ import List from './list.js';
 import EditPopup from './editPopup.jsx';
 import ImageUpload from './imageUpload.jsx';
 import { connect } from 'react-redux';
-import { replaceList, calenderToggle, editToggle } from '../actions';
+import { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent } from '../actions';
 
 class Main extends React.Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class Main extends React.Component {
     this.state = {
       time: '',
       event: '',
-      date: '',
       editId: '',
       today: new Date(),
     };
@@ -56,16 +55,14 @@ class Main extends React.Component {
 
   handleCalClick(e) {
     this.props.calenderToggle();
-    this.setState({
-      date: `${e.target.id}/${e.target.innerHTML}/2019`,
-    })
+    this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/2019`);
   }
 
   handleCalSubmitClick() {
     var data = {
-      event: this.state.event,
+      event: this.props.event,
       time: this.state.time,
-      date: this.state.date,
+      date: this.props.date,
       username: this.props.username,
     };
     this.props.calenderToggle();
@@ -73,8 +70,6 @@ class Main extends React.Component {
       this.setState({
         time: '',
         event: '',
-        toggle: false,
-        date: '',
       });
       this.get();
     });
@@ -92,12 +87,13 @@ class Main extends React.Component {
   }
 
   handleEditSubmit(e) {
+    console.log(this.props.event)
     Axios
       .put('/api/edit', {
         id: this.state.editId,
-        event: this.state.event,
+        event: this.props.event,
         time: this.state.time,
-        date: this.state.date,
+        date: this.props.date,
       })
       .then(() => {
         this.props.editToggle();
@@ -128,9 +124,8 @@ class Main extends React.Component {
   //event functions
 
   handleEventChange(e) {
-    this.setState({
-      event: e.target.value,
-    });
+    console.log(e.target.value)
+    this.props.replaceEvent(e.target.value);
   }
 
   handleTimeChange(e) {
@@ -180,8 +175,8 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { username, list, calToggle, eToggle } = state;
-  return { username, list, calToggle, eToggle };
+  const { username, list, calToggle, eToggle, date, event } = state;
+  return { username, list, calToggle, eToggle, date, event };
 }
 
-export default connect(mapStateToProps, { replaceList, calenderToggle, editToggle })(Main);
+export default connect(mapStateToProps, { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent })(Main);
