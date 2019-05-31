@@ -6,23 +6,14 @@ import List from './list.js';
 import EditPopup from './editPopup.jsx';
 import ImageUpload from './imageUpload.jsx';
 import { connect } from 'react-redux';
-import { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent } from '../actions';
+import { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent, replaceTime, editId } from '../actions';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      time: '',
-      event: '',
-      editId: '',
-      today: new Date(),
-    };
-
-    this.handleCalSubmitClick = this.handleCalSubmitClick.bind(this);
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleCalClick = this.handleCalClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
@@ -50,49 +41,20 @@ class Main extends React.Component {
       });
   }
 
-
-  //calendar functions
-
-  handleCalClick(e) {
-    this.props.calenderToggle();
-    this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/2019`);
-  }
-
-  handleCalSubmitClick() {
-    var data = {
-      event: this.props.event,
-      time: this.state.time,
-      date: this.props.date,
-      username: this.props.username,
-    };
-    this.props.calenderToggle();
-    Axios.post('/api/event', data).then(() => {
-      this.setState({
-        time: '',
-        event: '',
-      });
-      this.get();
-    });
-  }
-
-
   //edit functions
 
 
   handleEditClick(e) {
     this.props.editToggle();
-    this.setState({
-      editId: e.target.id,
-    });
+    this.props.editId(e.target.id);
   }
 
   handleEditSubmit(e) {
-    console.log(this.props.event)
     Axios
       .put('/api/edit', {
-        id: this.state.editId,
+        id: this.props.id,
         event: this.props.event,
-        time: this.state.time,
+        time: this.props.time,
         date: this.props.date,
       })
       .then(() => {
@@ -124,14 +86,11 @@ class Main extends React.Component {
   //event functions
 
   handleEventChange(e) {
-    console.log(e.target.value)
     this.props.replaceEvent(e.target.value);
   }
 
   handleTimeChange(e) {
-    this.setState({
-      time: e.target.value,
-    });
+    this.props.replaceTime(e.target.value);
   }
 
   render() {
@@ -154,7 +113,7 @@ class Main extends React.Component {
             </div>
             <br />
             <div className="center">
-              <Calendar today={this.state.today} handleCalClick={this.handleCalClick} />
+              <Calendar handleCalClick={this.handleCalClick} />
             </div>
           </div>
           {this.props.calToggle ? <CalPopup
@@ -175,8 +134,8 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { username, list, calToggle, eToggle, date, event } = state;
-  return { username, list, calToggle, eToggle, date, event };
+  const { username, list, calToggle, eToggle, date, event, time, id } = state;
+  return { username, list, calToggle, eToggle, date, event, time, id };
 }
 
-export default connect(mapStateToProps, { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent })(Main);
+export default connect(mapStateToProps, { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent, replaceTime, editId })(Main);

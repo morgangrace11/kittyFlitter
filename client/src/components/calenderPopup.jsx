@@ -1,24 +1,54 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { calenderToggle } from '../actions';
 
-const Popup = (props) => (
-  <div>
-    <div className="popup-main">
-      <form>
-        <div>
-          <TextField label="Event" onChange={props.handleEventChange} />
-        </div>
-        <div>
-          <TextField label="Time" onChange={props.handleTimeChange} />
-        </div>
-        <div>
-          <Button onClick={props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
-        </div>
-      </form>
-      <Button onClick={props.handleCalExit} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
-    </div>
-  </div>
-);
+class Popup extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default Popup;
+    this.handleCalSubmitClick = this.handleCalSubmitClick.bind(this);
+  }
+
+  handleCalSubmitClick() {
+    var data = {
+      event: this.props.event,
+      time: this.props.time,
+      date: this.props.date,
+      username: this.props.username,
+    };
+    this.props.calenderToggle();
+    Axios.post('/api/event', data).then(() => {
+      this.get();
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="popup-main">
+          <form>
+            <div>
+              <TextField label="Event" onChange={this.props.handleEventChange} />
+            </div>
+            <div>
+              <TextField label="Time" onChange={this.props.handleTimeChange} />
+            </div>
+            <div>
+              <Button onClick={this.props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
+            </div>
+          </form>
+          <Button onClick={this.props.handleCalExit} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
+        </div>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  const { date, time, event, username, calToggle } = state;
+  return { date, time, event, username, calToggle };
+};
+
+export default connect(mapStateToProps, { calenderToggle })(Popup);

@@ -12,6 +12,8 @@ import September from './calendarMonths/september.jsx';
 import October from './calendarMonths/october.jsx';
 import November from './calendarMonths/november.jsx';
 import December from './calendarMonths/december.jsx'
+import { replaceDate, calenderToggle } from '../actions';
+import { connect } from 'react-redux';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class Calendar extends React.Component {
     }
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.handleCalClick = this.handleCalClick.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,10 @@ class Calendar extends React.Component {
     })
   }
 
+  handleCalClick(e) {
+    this.props.calenderToggle();
+    this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/2019`);
+  }
 
   handlePrevClick() {
     this.setState({
@@ -71,4 +78,9 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+const mapStateToProps = state => {
+  const { calToggle } = state;
+  return { calToggle };
+};
+
+export default connect(mapStateToProps, { calenderToggle, replaceDate })(Calendar);
