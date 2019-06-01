@@ -61,18 +61,18 @@ class Calendar extends React.Component {
           <h2 id="month">{this.state.months[this.state.currMonth]}</h2>
           <Button variant='outlined' style={{ height: '50px', width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handleNextClick}>Next</Button>
         </div>
-        {this.state.months[this.state.currMonth] === 'January' ? <January handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'February' ? <February handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'March' ? <March handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'April' ? <April handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'May' ? <May handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'June' ? <June handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'July' ? <July handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'August' ? <August handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'September' ? <September handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'October' ? <October handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'November' ? <November handleCalClick={this.props.handleCalClick} /> : null}
-        {this.state.months[this.state.currMonth] === 'December' ? <December handleCalClick={this.props.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'January' ? <January handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'February' ? <February handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'March' ? <March handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'April' ? <April handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'May' ? <May handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'June' ? <June handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'July' ? <July handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'August' ? <August handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'September' ? <September handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'October' ? <October handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'November' ? <November handleCalClick={this.handleCalClick} /> : null}
+        {this.state.months[this.state.currMonth] === 'December' ? <December handleCalClick={this.handleCalClick} /> : null}
       </div >
     )
   }

@@ -27,20 +27,25 @@ class Popup extends React.Component {
   render() {
     return (
       <div>
-        <div className="popup-main">
-          <form>
-            <div>
-              <TextField label="Event" onChange={this.props.handleEventChange} />
+
+        {this.props.calToggle ?
+          <div>
+            <div className="popup-main">
+              <form>
+                <div>
+                  <TextField label="Event" onChange={this.props.handleEventChange} />
+                </div>
+                <div>
+                  <TextField label="Time" onChange={this.props.handleTimeChange} />
+                </div>
+                <div>
+                  <Button onClick={this.props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
+                </div>
+              </form>
+              <Button onClick={this.props.calenderToggle} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
             </div>
-            <div>
-              <TextField label="Time" onChange={this.props.handleTimeChange} />
-            </div>
-            <div>
-              <Button onClick={this.props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
-            </div>
-          </form>
-          <Button onClick={this.props.handleCalExit} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
-        </div>
+          </div> : null}
+
       </div>
     )
   }

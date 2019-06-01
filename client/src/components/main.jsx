@@ -116,11 +116,9 @@ class Main extends React.Component {
               <Calendar handleCalClick={this.handleCalClick} />
             </div>
           </div>
-          {this.props.calToggle ? <CalPopup
-            handleCalExit={this.props.calenderToggle}
-            handleCalSubmitClick={this.handleCalSubmitClick}
+          <CalPopup
             handleEventChange={this.handleEventChange}
-            handleTimeChange={this.handleTimeChange} /> : null}
+            handleTimeChange={this.handleTimeChange} />
           {this.props.eToggle ? <EditPopup
             handleEditSubmit={this.handleEditSubmit}
             handleEditExit={this.props.editToggle}
