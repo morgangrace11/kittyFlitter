@@ -6,7 +6,7 @@ import List from './list.js';
 import EditPopup from './editPopup.jsx';
 import ImageUpload from './imageUpload.jsx';
 import { connect } from 'react-redux';
-import { replaceList, editToggle, replaceEvent, replaceTime, editId } from '../actions';
+import { replaceList, replaceEvent, replaceTime } from '../actions';
 
 class Main extends React.Component {
   constructor(props) {
@@ -14,12 +14,8 @@ class Main extends React.Component {
 
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.get = this.get.bind(this);
   }
-
-  //get functions
 
   componentDidMount() {
     this.get();
@@ -39,34 +35,6 @@ class Main extends React.Component {
         console.error(err);
       });
   }
-
-  //edit functions
-
-
-  handleEditClick(e) {
-    this.props.editToggle();
-    this.props.editId(e.target.id);
-  }
-
-
-  //delete functions
-
-  handleDeleteClick(e) {
-    Axios
-      .delete('/api/delete', {
-        data: {
-          id: e.target.id,
-        }
-      })
-      .then(() => {
-        this.get();
-      }).catch(err => {
-        console.error(err);
-      });
-  }
-
-
-  //event functions
 
   handleEventChange(e) {
     this.props.replaceEvent(e.target.value);
@@ -90,8 +58,7 @@ class Main extends React.Component {
           <div className="main">
             <div className="list" >
               <List
-                handleEditClick={this.handleEditClick}
-                handleDeleteClick={this.handleDeleteClick}
+                get={this.get}
               />
             </div>
             <br />
@@ -117,4 +84,4 @@ const mapStateToProps = state => {
   return { username, list, event, time };
 }
 
-export default connect(mapStateToProps, { replaceList, editToggle, replaceEvent, replaceTime, editId })(Main);
+export default connect(mapStateToProps, { replaceList, replaceEvent, replaceTime })(Main);

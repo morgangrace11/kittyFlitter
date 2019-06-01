@@ -27,7 +27,6 @@ class Popup extends React.Component {
   render() {
     return (
       <div>
-
         {this.props.calToggle ?
           <div>
             <div className="popup-main">
@@ -45,7 +44,6 @@ class Popup extends React.Component {
               <Button onClick={this.props.calenderToggle} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
             </div>
           </div> : null}
-
       </div>
     )
   }
