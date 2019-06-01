@@ -6,7 +6,7 @@ import List from './list.js';
 import EditPopup from './editPopup.jsx';
 import ImageUpload from './imageUpload.jsx';
 import { connect } from 'react-redux';
-import { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent, replaceTime, editId } from '../actions';
+import { replaceList, editToggle, replaceEvent, replaceTime, editId } from '../actions';
 
 class Main extends React.Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class Main extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleEditSubmit = this.handleEditSubmit.bind(this);
     this.get = this.get.bind(this);
   }
 
@@ -49,22 +48,6 @@ class Main extends React.Component {
     this.props.editId(e.target.id);
   }
 
-  handleEditSubmit(e) {
-    Axios
-      .put('/api/edit', {
-        id: this.props.id,
-        event: this.props.event,
-        time: this.props.time,
-        date: this.props.date,
-      })
-      .then(() => {
-        this.props.editToggle();
-        this.get();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
   //delete functions
 
@@ -113,18 +96,16 @@ class Main extends React.Component {
             </div>
             <br />
             <div className="center">
-              <Calendar handleCalClick={this.handleCalClick} />
+              <Calendar />
             </div>
           </div>
           <CalPopup
             handleEventChange={this.handleEventChange}
             handleTimeChange={this.handleTimeChange} />
-          {this.props.eToggle ? <EditPopup
-            handleEditSubmit={this.handleEditSubmit}
-            handleEditExit={this.props.editToggle}
-            handleEditClick={this.handleEditClick}
+          <EditPopup
+            get={this.get}
             handleEventChange={this.handleEventChange}
-            handleTimeChange={this.handleTimeChange} /> : null}
+            handleTimeChange={this.handleTimeChange} />
         </div>
       </div>
     )
@@ -132,8 +113,8 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { username, list, calToggle, eToggle, date, event, time, id } = state;
-  return { username, list, calToggle, eToggle, date, event, time, id };
+  const { username, list, event, time } = state;
+  return { username, list, event, time };
 }
 
-export default connect(mapStateToProps, { replaceList, calenderToggle, editToggle, replaceDate, replaceEvent, replaceTime, editId })(Main);
+export default connect(mapStateToProps, { replaceList, editToggle, replaceEvent, replaceTime, editId })(Main);
