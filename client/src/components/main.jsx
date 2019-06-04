@@ -29,6 +29,7 @@ class Main extends React.Component {
         }
       })
       .then((response) => {
+        console.log(response.data)
         this.props.replaceList(response.data);
       })
       .catch((err) => {

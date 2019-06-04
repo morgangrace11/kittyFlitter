@@ -38,7 +38,7 @@ sequelize
       allowNull: false,
     },
     date: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     username: {
