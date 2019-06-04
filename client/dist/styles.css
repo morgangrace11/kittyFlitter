@@ -54,6 +54,10 @@ td {
   color: lightgrey
 }
 
+.days:hover {
+  background-color: #6A6C6E;
+}
+
 .list {
  margin: 0 auto;
  display: inline-block;
