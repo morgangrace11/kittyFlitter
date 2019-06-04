@@ -2,9 +2,9 @@ import React from 'react';
 import Axios from 'axios';
 import Calendar from './calender.jsx';
 import CalPopup from './calenderPopup.jsx';
-import List from './list.js';
+import List from './list.jsx';
 import EditPopup from './editPopup.jsx';
-import ImageUpload from './imageUpload.jsx';
+import Cats from './Cats.jsx';
 import { connect } from 'react-redux';
 import { replaceList, replaceEvent, replaceTime } from '../actions';
 
@@ -54,7 +54,7 @@ class Main extends React.Component {
         </div>
         <div className="container">
           <div className="center">
-            <ImageUpload />
+            <Cats />
           </div>
           <div className="main">
             <div className="list" >

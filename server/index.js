@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const multer = require('multer');
-const axios = require('axios');
 const db = require('../database');
 
 const saltRounds = 10;
@@ -14,29 +12,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 app.use(bodyParser.json());
-
-const storage = multer.diskStorage({
-  destination: '../files',
-  filename(req, file, cb) {
-    cb(null, `${req.body.name}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
-
-app.post('/files', upload.single('file'), (req, res) => {
-  const file = req.file;
-  console.log(req.file)
-  const meta = req.body;
-  console.log(req.body)
-  axios.post('http://s3.amazonaws.com/kittflitter', {
-    file,
-    name: meta.name,
-  })
-    .then(response => res.status(200).json(response.data.data))
-    .catch(error => res.status(500).json(error.response.data));
-})
-
 
 app.post('/register', (req, res) => {
   const salt = bcrypt.genSaltSync(saltRounds);
