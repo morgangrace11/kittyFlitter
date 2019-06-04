@@ -76,6 +76,9 @@ app.get('/api/event', (req, res) => {
     where: {
       username: req.query.username,
     },
+    order: [
+      ['date', 'ASC'],
+    ],
   }).then((response) => {
     res.status(200);
     res.send(response);

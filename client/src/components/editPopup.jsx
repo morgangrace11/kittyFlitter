@@ -34,17 +34,15 @@ class EditPopup extends React.Component {
       <div>
         {this.props.eToggle ? <div>
           <div className="popup-main">
-            <form>
-              <div>
-                <TextField label="Event" onChange={this.props.handleEventChange} />
-              </div>
-              <div>
-                <TextField label="Time" onChange={this.props.handleTimeChange} />
-              </div>
-              <div>
-                <Button onClick={this.handleEditSubmit} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
-              </div>
-            </form>
+            <div>
+              <TextField label="Event" onChange={this.props.handleEventChange} />
+            </div>
+            <div>
+              <TextField type="time" onChange={this.props.handleTimeChange} />
+            </div>
+            <div>
+              <Button onClick={this.handleEditSubmit} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
+            </div>
             <Button onClick={this.props.editToggle} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>
           </div>
         </div> : null}

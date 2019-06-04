@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { calenderToggle } from '../actions';
+import Axios from 'axios';
 
 class Popup extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Popup extends React.Component {
     };
     this.props.calenderToggle();
     Axios.post('/api/event', data).then(() => {
-      this.get();
+      this.props.get();
     });
   }
 
@@ -35,10 +36,10 @@ class Popup extends React.Component {
                   <TextField label="Event" onChange={this.props.handleEventChange} />
                 </div>
                 <div>
-                  <TextField label="Time" onChange={this.props.handleTimeChange} />
+                  <TextField type="time" onChange={this.props.handleTimeChange} />
                 </div>
                 <div>
-                  <Button onClick={this.props.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
+                  <Button onClick={this.handleCalSubmitClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>
                 </div>
               </form>
               <Button onClick={this.props.calenderToggle} variant='outlined' style={{ width: '90px' }} size='large'>Cancel</Button>

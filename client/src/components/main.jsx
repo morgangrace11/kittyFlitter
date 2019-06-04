@@ -67,6 +67,7 @@ class Main extends React.Component {
             </div>
           </div>
           <CalPopup
+            get={this.get}
             handleEventChange={this.handleEventChange}
             handleTimeChange={this.handleTimeChange} />
           <EditPopup
