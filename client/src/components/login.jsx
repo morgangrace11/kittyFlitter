@@ -55,7 +55,7 @@ class Login extends React.Component {
             <TextField label="username" onChange={this.handleUsername} />
           </div>
           <div>
-            <TextField label="password" onChange={this.handlePassword} />
+            <TextField type="password" label="password" onChange={this.handlePassword} />
           </div>
           <br />
           <Button onClick={this.handleClick} variant='outlined' style={{ width: '90px' }} size='large'>Submit</Button>

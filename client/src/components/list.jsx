@@ -18,17 +18,19 @@ class List extends React.Component {
   }
 
   handleDeleteClick(e) {
-    Axios
-      .delete('/api/delete', {
-        data: {
-          id: e.target.id,
-        }
-      })
-      .then(() => {
-        this.props.get();
-      }).catch(err => {
-        console.error(err);
-      });
+     if(window.confirm('Are you sure you want to delete this todo?')) {
+       Axios
+         .delete('/api/delete', {
+           data: {
+             id: e.target.id,
+           }
+         })
+         .then(() => {
+           this.props.get();
+         }).catch(err => {
+           console.error(err);
+         });
+     }
   }
 
   render() {
@@ -45,9 +47,10 @@ class List extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { list } = state;
-  return { list };
+const mapStateToProps = state => {
+  const {  list } = state;
+  return {  list };
 }
+
 
 export default connect(mapStateToProps, { editToggle, editId })(List);
