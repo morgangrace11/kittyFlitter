@@ -51,13 +51,13 @@ const August = (props) => {
             <td className="days" id="8" onClick={props.handleCalClick}>24</td>
           </tr>
           <tr>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>25</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>26</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>27</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>28</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>29</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>30</td>
-            <td monclassName="days" th="8" onClick={props.handleCalClick}>31</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>25</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>26</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>27</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>28</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>29</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>30</td>
+            <td className="days" th="8" onClick={props.handleCalClick}>31</td>
           </tr>
         </tbody>
       </table>
