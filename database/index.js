@@ -1,16 +1,8 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('kittyFlitter', 'morgan', 'password', {
-  host: 'kitty-flitter.cc0jybez5blr.us-east-2.rds.amazonaws.com',
-  port: 3306,
+const sequelize = new Sequelize('kittyFlitter', 'admin', 'admin', {
+  host: 'localhost',
   dialect: 'mysql',
-  dialectOptions: {
-    ssl: 'Amazon RDS',
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000,
-  },
+
 });
 
 sequelize
