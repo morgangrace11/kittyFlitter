@@ -25,9 +25,12 @@ class Calendar extends React.Component {
       date: new Date(),
       currMonthNumber: '',
       currentMonth: '',
-      daysInMonth: '',
+      currDaysInMonth: '',
+      prevDaysInMonth: '',
+      nextDaysInMonth: '',
       firstDay: '',
-      currentYear: ''
+      currentYear: '',
+      currentWeekday: ''
     }
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
@@ -40,59 +43,80 @@ class Calendar extends React.Component {
     let year = this.state.date.getFullYear();
     let month = this.state.date.getMonth();
     let currentWeekday = new Date(year, month, 1).getDay();
-    console.log(currentWeekday, '--')
     //use this day for the month component to find the days needed to be populated from the last months dates when this month doesnt start
     //on sunday
     let currentDay = this.state.date.getDay();
-    // console.log(year, month, currentDay)
     //update setState with our new date information
+    /*
+    TODO: curr next and prev days is going to need some handling here for when it is january
+          or it is december maybe split logic out into it's own function so there's less code repeating.
+          For now getting calendar component to work will refactor later. 
+    */
+   console.log(month)
     this.setState({
       currMonthNumber: month,
       currentMonth: this.state.months[month],
       currentYear: year,
-      currentWeekday: currentWeekday
+      currentWeekday: currentWeekday,
+      currDaysInMonth: new Date(year, month+1, 0).getDate(),
+      prevDaysInMonth: new Date(year, month, 0).getDate(),
+      nextDaysInMonth: new Date(year, month + 2, 0).getDate(),
     })
   }
 
   handleCalClick(e) {
     this.props.calenderToggle();
-    //todo: this year needs to be dynamic - need to look at what exactly this changes first
     this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/${this.state.currentYear}`);
   }
 
   handlePrevClick() {
-    console.log(this.state.currMonthNumber)
-    //todo: functionality to ensure correct year is showing
     if (this.state.currMonthNumber === 0) {
       this.setState({
         currMonthNumber: 11,
         currentMonth: 'December',
         currentYear: this.state.currentYear - 1,
-        currentWeekday: new Date(this.state.currentYear - 1, 11, 1).getDay()
+        currentWeekday: new Date(this.state.currentYear - 1, 11, 1).getDay(),
+        currDaysInMonth: new Date(this.state.currentYear - 1, 12, 0).getDate(),
+        prevDaysInMonth: new Date(this.state.currentYear - 1, 11, 0).getDate(),
+        nextDaysInMonth: new Date(this.state.currentYear + 1, 1, 0).getDate()
       });
     } else {
+      console.log(this.state.currMonthNumber, this.state.currMonthNumber - 2, this.state.currMonthNumber)
+
       this.setState({
         currMonthNumber: this.state.currMonthNumber - 1,
         currentMonth: this.state.months[this.state.currMonthNumber - 1],
-        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber - 1, 1).getDay()
+        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber - 1, 1).getDay(),
+        //need non zero indexed month number so current month is correct then +/- that number
+        currDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber, 0).getDate(), 
+        prevDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber - 1, 0).getDate(), 
+        nextDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber + 1, 0).getDate()
       });
     }
   }
 
   handleNextClick() {
-    //todo: functionality to ensure correct year is showing
     if (this.state.currMonthNumber === 11) {
       this.setState({
         currMonthNumber: 0,
         currentMonth: 'January',
         currentYear: this.state.currentYear + 1,
-        currentWeekday: new Date(this.state.currentYear + 1, 0, 1).getDay()
+        currentWeekday: new Date(this.state.currentYear + 1, 0, 1).getDay(),
+        currDaysInMonth: new Date(this.state.currentYear + 1, 1, 0).getDate(),
+        prevDaysInMonth: new Date(this.state.currentYear - 1, 12, 0).getDate(),
+        nextDaysInMonth: new Date(this.state.currentYear + 1, 2, 0).getDate()
       });
     } else {
+      console.log(this.state.currMonthNumber + 2, this.state.currMonthNumber + 1, this.state.currMonthNumber + 2)
       this.setState({
         currMonthNumber: this.state.currMonthNumber + 1,
         currentMonth: this.state.months[this.state.currMonthNumber  + 1],
-        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber + 1, 1).getDay()
+        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber + 1, 1).getDay(),
+        //need non zero indexed month number so current month needs + 2 to  get correct number, only a + 1 for last month (zero indexed version), and + 3 for the next month. 
+        //Ex. currMonth: 6 -> 6 + 1 for zero indexed 7 -> 6 + 2 for non zero indexed 8 - august
+        currDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber + 2, 0).getDate(),
+        prevDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber + 1, 0).getDate(),
+        nextDaysInMonth: new Date(this.state.currentYear, this.state.currMonthNumber + 3, 0).getDate()
       });
     }
   }
@@ -107,7 +131,11 @@ class Calendar extends React.Component {
         </div>
         <CalendarMonth 
           // todo: send all month data down to cal month component (month, dayofweek, numofdays)
-          month={{month: this.state.currentMonth}}
+          month={this.state.currentMonth}
+          currentWeekday={this.state.currentWeekday}
+          currDaysInMonth={this.state.currDaysInMonth}
+          nextDaysInMonth={this.state.nextDaysInMonth}
+          prevDaysInMonth={this.state.prevDaysInMonth}
         />
 
         {/* {this.state.months[this.state.currMonth] === 'January' ? <January handleCalClick={this.handleCalClick} /> : null}
