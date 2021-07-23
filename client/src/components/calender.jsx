@@ -39,38 +39,62 @@ class Calendar extends React.Component {
     //can do this in handle click methods for prev and click 
     let year = this.state.date.getFullYear();
     let month = this.state.date.getMonth();
+    let currentWeekday = new Date(year, month, 1).getDay();
+    console.log(currentWeekday, '--')
     //use this day for the month component to find the days needed to be populated from the last months dates when this month doesnt start
     //on sunday
     let currentDay = this.state.date.getDay();
-    console.log(year, month, currentDay)
+    // console.log(year, month, currentDay)
     //update setState with our new date information
     this.setState({
-      currMonth: this.state.date.getMonth(),
-      currentMonth: this.state.months[this.state.date.getMonth()],
-      
+      currMonthNumber: month,
+      currentMonth: this.state.months[month],
+      currentYear: year,
+      currentWeekday: currentWeekday
     })
   }
 
   handleCalClick(e) {
     this.props.calenderToggle();
     //todo: this year needs to be dynamic - need to look at what exactly this changes first
-    this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/2019`);
+    this.props.replaceDate(`${e.target.id}/${e.target.innerHTML}/${this.state.currentYear}`);
   }
 
   handlePrevClick() {
+    console.log(this.state.currMonthNumber)
     //todo: functionality to ensure correct year is showing
-    this.setState({
-      currMonth: this.state.currMonth - 1,
-      currentMonth: this.state.months[this.state.currMonth - 1]
-    });
+    if (this.state.currMonthNumber === 0) {
+      this.setState({
+        currMonthNumber: 11,
+        currentMonth: 'December',
+        currentYear: this.state.currentYear - 1,
+        currentWeekday: new Date(this.state.currentYear - 1, 11, 1).getDay()
+      });
+    } else {
+      this.setState({
+        currMonthNumber: this.state.currMonthNumber - 1,
+        currentMonth: this.state.months[this.state.currMonthNumber - 1],
+        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber - 1, 1).getDay()
+      });
+    }
   }
 
   handleNextClick() {
     //todo: functionality to ensure correct year is showing
-    this.setState({
-      currMonth: this.state.currMonth + 1,
-      currentMonth: this.state.months[this.state.currMonth  + 1]
-    });
+    if (this.state.currMonthNumber === 11) {
+      this.setState({
+        currMonthNumber: 0,
+        currentMonth: 'January',
+        currentYear: this.state.currentYear + 1,
+        currentWeekday: new Date(this.state.currentYear + 1, 0, 1).getDay()
+      });
+    } else {
+      this.setState({
+        currMonthNumber: this.state.currMonthNumber + 1,
+        currentMonth: this.state.months[this.state.currMonthNumber  + 1],
+        currentWeekday: new Date(this.state.currentYear, this.state.currMonthNumber + 1, 1).getDay()
+      });
+    }
   }
 
   render() {
@@ -78,7 +102,7 @@ class Calendar extends React.Component {
       <div>
         <div className="calHeader">
           <Button variant='outlined' style={{ height: '50px', width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handlePrevClick}>Previous</Button>
-          <h2 id="month">{this.state.months[this.state.currMonth]}</h2>
+          <h2 id="month">{this.state.months[this.state.currMonthNumber]} - {this.state.currentYear}</h2>
           <Button variant='outlined' style={{ height: '50px', width: '90px', color: 'rgb(233, 183, 54)', borderColor: 'rgb(233, 183, 54)', }} size='small' onClick={this.handleNextClick}>Next</Button>
         </div>
         <CalendarMonth 
